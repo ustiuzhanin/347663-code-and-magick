@@ -43,7 +43,10 @@ window.renderStatistics = function (ctx, names, times) {
     ctx.fillText(lineTwo, CLOUD_X + GAP, CLOUD_Y + (GAP + FONT_GAP) * 2);
   };
 
-  var drawNames = function () {
+  var drawStatistics = function () {
+
+    var maxTime = getMaxElement(times);
+
     for (var i = 0; i < names.length; i++) {
       ctx.font = '14px PT Mono';
       ctx.fillStyle = '#000';
@@ -57,10 +60,11 @@ window.renderStatistics = function (ctx, names, times) {
       }
       ctx.fillRect(CLOUD_X + BAR_WIDTH + (BAR_WIDTH + BAR_SPACE) * i, CLOUD_HEIGHT - GAP * 3, BAR_WIDTH, -(GRAPH_HEIGHT * times[i]) / maxTime);
     }
+
+
   };
 
-  var maxTime = getMaxElement(times);
   drawText('Ура вы победили!', 'Список результатов:');
-  drawNames();
+  drawStatistics();
 
 };
