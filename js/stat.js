@@ -35,26 +35,32 @@ window.renderStatistics = function (ctx, names, times) {
   renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, 'rgba(0, 0, 0, 0.7)');
   renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff');
 
-  ctx.fillStyle = '#000';
+  var drawText = function (lineOne, lineTwo) {
+    ctx.fillStyle = '#000';
+    ctx.font = '16px PT Mono';
 
-  ctx.font = '16px PT Mono';
-  ctx.fillText('Ура вы победили!', CLOUD_X + GAP, CLOUD_Y + GAP + FONT_GAP);
-  ctx.fillText('Список результатов:', CLOUD_X + GAP, CLOUD_Y + (GAP + FONT_GAP) * 2);
+    ctx.fillText(lineOne, CLOUD_X + GAP, CLOUD_Y + GAP + FONT_GAP);
+    ctx.fillText(lineTwo, CLOUD_X + GAP, CLOUD_Y + (GAP + FONT_GAP) * 2);
+  };
+
+  var drawNames = function () {
+    for (var i = 0; i < names.length; i++) {
+      ctx.font = '14px PT Mono';
+      ctx.fillStyle = '#000';
+      ctx.fillText(names[i], CLOUD_X + BAR_WIDTH + (GAP + BAR_WIDTH * 2) * i, CLOUD_HEIGHT - GAP);
+      ctx.fillText(Math.round(times[i]), CLOUD_X + BAR_WIDTH + (GAP + BAR_WIDTH * 2) * i, ((CLOUD_HEIGHT - GAP * 3) - (GRAPH_HEIGHT * times[i]) / maxTime) - GAP);
+
+      if (names[i] === 'Вы') {
+        ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+      } else {
+        ctx.fillStyle = getRandomHslColor(200, 260);
+      }
+      ctx.fillRect(CLOUD_X + BAR_WIDTH + (BAR_WIDTH + BAR_SPACE) * i, CLOUD_HEIGHT - GAP * 3, BAR_WIDTH, -(GRAPH_HEIGHT * times[i]) / maxTime);
+    }
+  };
 
   var maxTime = getMaxElement(times);
-
-  for (var i = 0; i < names.length; i++) {
-    ctx.font = '14px PT Mono';
-    ctx.fillStyle = '#000';
-    ctx.fillText(names[i], CLOUD_X + BAR_WIDTH + (GAP + BAR_WIDTH * 2) * i, CLOUD_HEIGHT - GAP);
-    ctx.fillText(Math.round(times[i]), CLOUD_X + BAR_WIDTH + (GAP + BAR_WIDTH * 2) * i, ((CLOUD_HEIGHT - GAP * 3) - (GRAPH_HEIGHT * times[i]) / maxTime) - GAP);
-
-    if (names[i] === 'Вы') {
-      ctx.fillStyle = 'rgba(255, 0, 0, 1)';
-    } else {
-      ctx.fillStyle = getRandomHslColor(200, 260);
-    }
-    ctx.fillRect(CLOUD_X + BAR_WIDTH + (BAR_WIDTH + BAR_SPACE) * i, CLOUD_HEIGHT - GAP * 3, BAR_WIDTH, -(GRAPH_HEIGHT * times[i]) / maxTime);
-  }
+  drawText('Ура вы победили!', 'Список результатов:');
+  drawNames();
 
 };
