@@ -90,21 +90,29 @@ getCharactersArray(OBJECTS_COUNT);
 4,
 5 шаблон и отрисовка
 */
+
 var setupSimilar = document.querySelector('.setup-similar');
 setupSimilar.classList.remove('hidden');
 
-var charactersRender = function () {
-  var characterTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
-  var characterList = document.querySelector('.setup-similar-list');
+var characterTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
+var characterList = document.querySelector('.setup-similar-list');
 
-  for (var i = 0; i < characters.length; i++) {
-    var characterElement = characterTemplate.cloneNode(true);
+var charactersRender = function (character) {
 
-    characterElement.querySelector('.setup-similar-label').textContent = characters[i].name;
-    characterElement.querySelector('.wizard-coat').style = 'fill: ' + characters[i].coatColor;
-    characterElement.querySelector('.wizard-eyes').style = 'fill: ' + characters[i].eyesColor;
+  var characterElement = characterTemplate.cloneNode(true);
 
-    characterList.appendChild(characterElement);
-  }
+  characterElement.querySelector('.setup-similar-label').textContent = character.name;
+  characterElement.querySelector('.wizard-coat').style = 'fill: ' + character.coatColor;
+  characterElement.querySelector('.wizard-eyes').style = 'fill: ' + character.eyesColor;
+
+  return characterElement;
 };
-charactersRender();
+
+var charactesPost = function () {
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < characters.length; i++) {
+    fragment.appendChild(charactersRender(characters[i]));
+  }
+  characterList.appendChild(fragment);
+}
+charactesPost();
