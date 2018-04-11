@@ -114,5 +114,5 @@ var charactesPost = function () {
     fragment.appendChild(charactersRender(characters[i]));
   }
   characterList.appendChild(fragment);
-}
+};
 charactesPost();
