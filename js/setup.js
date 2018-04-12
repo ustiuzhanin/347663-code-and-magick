@@ -126,19 +126,12 @@ charactesPost();
 var setupOpen = document.querySelector('.setup-open-icon');
 var setup = document.querySelector('.setup');
 var setupClose = document.querySelector('.setup-close');
-
 var setupInput = document.querySelector('.setup-user-name');
 
-// setupInput.addEventListener('keydown', function(evt) {
-//   if (evt.keyCode === 27) {
-//     setupInput.value = '';
-//   }
-// });
-
 var onPopupEscPress = function (evt) {
-  setupInput.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === 27) {
-      evt.stopPropagation();
+  setupInput.addEventListener('keydown', function (e) {
+    if (e.keyCode === 27) {
+      e.stopPropagation();
       setupInput.value = '';
     }
   });
@@ -148,16 +141,15 @@ var onPopupEscPress = function (evt) {
   }
 };
 
-
 var openPopup = function () {
   setup.classList.remove('hidden');
   document.addEventListener('keydown', onPopupEscPress);
-}
+};
 
 var closePopup = function () {
   setup.classList.add('hidden');
   document.removeEventListener('keydown', onPopupEscPress);
-}
+};
 
 setupOpen.addEventListener('click', function () {
   openPopup();
@@ -178,14 +170,6 @@ setupClose.addEventListener('keydown', function (evt) {
     closePopup();
   }
 });
-//
-// setupInput.addEventListener('focus', function () {
-//   setupInput.addEventListener('keydown', function (evt) {
-//     if (evt.keyCode === 27) {
-//       setupInput.value = '';
-//     }
-//   });
-// });
 
 /*
   Изменение цвета глаз персонажа и файрбола по нажатию
@@ -199,7 +183,7 @@ var fireballColorInput = document.querySelector('input[name = "fireball-color"]'
 var clicks = 0;
 
 var colorChange = function (colorsArray, colorTag, inputValue, style) {
-  clicks +=1;
+  clicks += 1;
   if (clicks >= colorsArray.length) {
     clicks = 0;
   }
@@ -207,10 +191,10 @@ var colorChange = function (colorsArray, colorTag, inputValue, style) {
   inputValue.value = colorsArray[clicks];
 };
 
-eyesColor.addEventListener('click', function() {
+eyesColor.addEventListener('click', function () {
   colorChange(EYES_COLORS, eyesColor, eyesColorInput, 'fill: ');
 });
 
-fireballColor.addEventListener('click', function() {
-  colorChange(FIREBALL_COLORS,fireballColor, fireballColorInput, 'background: ');
+fireballColor.addEventListene('click', function () {
+  colorChange(FIREBALL_COLORS, fireballColor, fireballColorInput, 'background: ');
 });
