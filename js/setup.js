@@ -195,6 +195,6 @@ eyesColor.addEventListener('click', function () {
   colorChange(EYES_COLORS, eyesColor, eyesColorInput, 'fill: ');
 });
 
-fireballColor.addEventListene('click', function () {
+fireballColor.addEventListener('click', function () {
   colorChange(FIREBALL_COLORS, fireballColor, fireballColorInput, 'background: ');
 });
