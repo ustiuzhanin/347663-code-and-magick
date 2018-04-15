@@ -125,8 +125,8 @@ charactesPost();
 
 var setupOpen = document.querySelector('.setup-open-icon');
 var setup = document.querySelector('.setup');
-var setupClose = document.querySelector('.setup-close');
-var setupInput = document.querySelector('.setup-user-name');
+var setupClose = setup.querySelector('.setup-close');
+var setupInput = setup.querySelector('.setup-user-name');
 
 var onPopupEscPress = function (evt) {
   setupInput.addEventListener('keydown', function (e) {
@@ -175,10 +175,10 @@ setupClose.addEventListener('keydown', function (evt) {
   Изменение цвета глаз персонажа и файрбола по нажатию
 */
 
-var eyesColor = document.querySelector('.setup-wizard .wizard-eyes');
-var eyesColorInput = document.querySelector('input[name = "eyes-color"]');
-var fireballColor = document.querySelector('.setup-fireball-wrap');
-var fireballColorInput = document.querySelector('input[name = "fireball-color"]');
+var eyesColor = setup.querySelector('.setup-wizard .wizard-eyes');
+var eyesColorInput = setup.querySelector('input[name = "eyes-color"]');
+var fireballColor = setup.querySelector('.setup-fireball-wrap');
+var fireballColorInput = setup.querySelector('input[name = "fireball-color"]');
 
 var clicks = 0;
 
