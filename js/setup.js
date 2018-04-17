@@ -31,6 +31,14 @@ var COAT_COLORS = [
   'rgb(0, 0, 0)'
 ];
 
+var FIREBALL_COLORS = [
+  '#ee4830',
+  '#30a8ee',
+  '#5ce6c0',
+  '#e848d5',
+  '#e6e848'
+];
+
 var EYES_COLORS = [
   'black',
   'red',
@@ -43,12 +51,8 @@ var OBJECTS_COUNT = 4;
 var characters = [];
 
 /*
-1,
-2 массив с персонажами
+  массив с персонажами
 */
-
-var setup = document.querySelector('.setup');
-setup.classList.remove('hidden');
 
 var getRandomSorting = function (arr) {
   arr.sort(function () {
@@ -86,9 +90,7 @@ var getCharactersArray = function (numberOfCharacters) {
 getCharactersArray(OBJECTS_COUNT);
 
 /*
-3,
-4,
-5 шаблон и отрисовка
+  шаблон и отрисовка
 */
 
 var setupSimilar = document.querySelector('.setup-similar');
@@ -116,3 +118,83 @@ var charactesPost = function () {
   characterList.appendChild(fragment);
 };
 charactesPost();
+
+/*
+  Открытие/закрытие окна настройки персонажа:
+*/
+
+var setupOpen = document.querySelector('.setup-open-icon');
+var setup = document.querySelector('.setup');
+var setupClose = setup.querySelector('.setup-close');
+var setupInput = setup.querySelector('.setup-user-name');
+
+var onPopupEscPress = function (evt) {
+  setupInput.addEventListener('keydown', function (e) {
+    if (e.keyCode === 27) {
+      e.stopPropagation();
+      setupInput.value = '';
+    }
+  });
+
+  if (evt.keyCode === 27) {
+    closePopup();
+  }
+};
+
+var openPopup = function () {
+  setup.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscPress);
+};
+
+var closePopup = function () {
+  setup.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
+setupOpen.addEventListener('click', function () {
+  openPopup();
+});
+
+setupOpen.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === 13) {
+    openPopup();
+  }
+});
+
+setupClose.addEventListener('click', function () {
+  closePopup();
+});
+
+setupClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === 13) {
+    closePopup();
+  }
+});
+
+/*
+  Изменение цвета глаз персонажа и файрбола по нажатию
+*/
+
+var eyesColor = setup.querySelector('.setup-wizard .wizard-eyes');
+var eyesColorInput = setup.querySelector('input[name = "eyes-color"]');
+var fireballColor = setup.querySelector('.setup-fireball-wrap');
+var fireballColorInput = setup.querySelector('input[name = "fireball-color"]');
+
+var clicks = 0;
+
+var colorChange = function (colorsArray, colorTag, inputValue, style) {
+  clicks += 1;
+  if (clicks >= colorsArray.length) {
+    clicks = 0;
+  }
+  colorTag.style = style + colorsArray[clicks];
+  inputValue.value = colorsArray[clicks];
+};
+
+eyesColor.addEventListener('click', function () {
+  colorChange(EYES_COLORS, eyesColor, eyesColorInput, 'fill: ');
+});
+
+fireballColor.addEventListener('click', function () {
+  colorChange(FIREBALL_COLORS, fireballColor, fireballColorInput, 'background: ');
+});
